@@ -356,7 +356,7 @@ var open = function (path, options) {
 
 	args.push('"'+path+'"');
 
-	if (['hdmi','local','both'].indexOf(settings.audioOutput) != -1) {
+	if (['hdmi','local','both','alsa'].indexOf(settings.audioOutput) != -1) {
 		args.push('-o');
 		args.push(settings.audioOutput);
 	}

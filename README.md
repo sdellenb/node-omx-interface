@@ -39,7 +39,7 @@ The remote can be located from any browser on the local network. The webpage can
 
 # Options
 ## general options
-audioOutput:             'hdmi' | 'local' | 'both'
+audioOutput:             'hdmi' | 'local' | 'both' | 'alsa'
 
 blackBackground:         boolean, true by default
 
