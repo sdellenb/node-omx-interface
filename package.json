@@ -4,6 +4,8 @@
   "description": "An interface for omxplayer through dbus",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
+    "precommit": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
@@ -15,6 +17,10 @@
   },
   "dependencies": {
     "jsonfile": "^2.4.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0"
   },
   "keywords": [
     "omxplayer",
