@@ -1,4 +1,9 @@
 const exec = require('child_process').exec;
+const logger = require('debug');
+const debug = logger('omx-interface:debug');
+debug.log = console.log.bind(console);
+const info = logger('omx-interface:info');
+info.log = console.log.bind(console);
 
 var defaults, progressHandler;
 
@@ -41,7 +46,7 @@ const dbus = 'bash ' + __dirname + '/dbus.sh ';
 function checkProgressHandler() {
 	if (progressHandler) {
 		clearInterval(progressHandler);
-		console.log('progressHandler cancelled');
+		debug('progressHandler cancelled');
 	}
 }
 
@@ -232,13 +237,13 @@ const showSubtitles = function() {
 const setVisibility = function(visible) {
 	var command = visible ? 'unhidevideo' : 'hidevideo';
 	exec(dbus + command, function(err, stdout, stderr) {
-		console.log('result of setVisible:', command, ': error?', err);
+		info('result of setVisible:', command, ': error?', err);
 	});
 };
 
 const setAlpha = function(alpha) {
 	exec(dbus + 'setalpha ' + alpha, function(err, stdout, stderr) {
-		console.log('result of setAlpha; error?', err);
+		info('result of setAlpha; error?', err);
 	});
 };
 
@@ -336,7 +341,7 @@ const getCurrentPath = function(){
 };
 
 const onProgress = function(callback){
-	console.log('add new progress handler');
+	debug('add new progress handler');
 	progressHandler = setInterval(function(){
 		if (getCurrentStatus()){
 			callback({position:getCurrentPosition(), duration:getCurrentDuration()});
@@ -410,13 +415,13 @@ const open = function (path, options, playbackFinishedCallback = null) {
 	args.push('org.mpris.MediaPlayer2.omxplayer');
 
 	exec(command + ' ' + args.join(' '), function(error, stdout, stderr) {
-		console.log('exec callback start');
+		debug('exec callback start');
 		update_duration();
-		console.log('update duration done');
+		debug('update duration done');
 		setTimeout( function() {
 			checkProgressHandler();
 		}, 1000);
-		console.log(stdout);
+		info(stdout);
 		if (playbackFinishedCallback) {
 			playbackFinishedCallback();
 		}
