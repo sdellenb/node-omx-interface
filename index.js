@@ -356,7 +356,7 @@ var onEnd = function(callback){
 }
 */
 
-const open = function (path, options) {
+const open = function (path, options, playbackFinishedCallback = null) {
 	var settings = options || {};
 	var args = [];
 	var command = 'omxplayer';
@@ -417,6 +417,9 @@ const open = function (path, options) {
 			checkProgressHandler();
 		}, 1000);
 		console.log(stdout);
+		if (playbackFinishedCallback) {
+			playbackFinishedCallback();
+		}
 	});
 
 	update_duration();
